@@ -1,4 +1,5 @@
-import { Tooltip, Avatar } from "@chakra-ui/react";
+import { Avatar } from "@chakra-ui/avatar";
+import { Tooltip } from "@chakra-ui/tooltip";
 import ScrollableFeed from "react-scrollable-feed";
 import {
   isLastMessage,
@@ -11,19 +12,10 @@ import { ChatState } from "../Context/ChatProvider";
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
 
-  if (!messages || !user) {
-    return null; // or a loading spinner
-  }
-
   return (
     <ScrollableFeed>
-      {messages && messages.map((m, i) => {
-        if (!m.sender || !m.sender.name) {
-          console.error("Message sender or sender name is undefined", m);
-          return null; // Skip rendering this message
-        }
-
-        return (
+      {messages &&
+        messages.map((m, i) => (
           <div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && (
@@ -43,18 +35,17 @@ const ScrollableChat = ({ messages }) => {
                 backgroundColor: `${
                   m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
                 }`,
+                marginLeft: isSameSenderMargin(messages, m, i, user._id),
+                marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
                 borderRadius: "20px",
                 padding: "5px 15px",
                 maxWidth: "75%",
-                marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
               }}
             >
               {m.content}
             </span>
           </div>
-        );
-      })}
+        ))}
     </ScrollableFeed>
   );
 };

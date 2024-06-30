@@ -13,10 +13,10 @@ const Signup = () => {
   const toast = useToast();
   const history = useHistory();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [confirmpassword, setConfirmpassword] = useState();
+  const [password, setPassword] = useState();
   const [pic, setPic] = useState();
   const [picLoading, setPicLoading] = useState(false);
 
@@ -24,7 +24,7 @@ const Signup = () => {
     setPicLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
-        title: "Please fill all the fields",
+        title: "Please Fill all the Feilds",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -35,13 +35,12 @@ const Signup = () => {
     }
     if (password !== confirmpassword) {
       toast({
-        title: "Passwords do not match",
+        title: "Passwords Do Not Match",
         status: "warning",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-      setPicLoading(false);
       return;
     }
     console.log(name, email, password, pic);
@@ -63,7 +62,7 @@ const Signup = () => {
       );
       console.log(data);
       toast({
-        title: "Registration successful",
+        title: "Registration Successful",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -74,7 +73,7 @@ const Signup = () => {
       history.push("/chats");
     } catch (error) {
       toast({
-        title: "Error occurred!",
+        title: "Error Occured!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -89,13 +88,12 @@ const Signup = () => {
     setPicLoading(true);
     if (pics === undefined) {
       toast({
-        title: "Please select an image!",
+        title: "Please Select an Image!",
         status: "warning",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-      setPicLoading(false);
       return;
     }
     console.log(pics);
@@ -120,7 +118,7 @@ const Signup = () => {
         });
     } else {
       toast({
-        title: "Please select an image!",
+        title: "Please Select an Image!",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -163,7 +161,7 @@ const Signup = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="confirm-password" isRequired>
+      <FormControl id="password" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input
